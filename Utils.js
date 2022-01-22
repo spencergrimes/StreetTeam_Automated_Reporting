@@ -17,3 +17,50 @@ function getColumnNrByWeekName(sheet, name) {
 
     throw 'failed to get column by name';
 }
+
+function translateTitleToRowNumber(name) {  // TODO: Find this automatically
+    switch (name) {
+        case 'conversations_started':
+            return ["11", "16"]
+        case 'songs_clicked':
+            return ["18"]
+        case 'songs_listened':
+            return ["20"]
+        case 'songs_enjoyed':
+            return ["22"]
+        case 'new_fans_subscribed':
+            return ["24"]
+        case 'total_fans_subscribed':
+            return ["28"]
+        case 'fans_engaged':  // TODO: Check this here Engaged == Activated? 
+            return ["30"]
+        case 'shows_registered': 
+            return ["32", "36"]
+        case 'shows_attended':
+            return ["38"]
+        case 'calls_booked':
+            return ["40", "44"]
+        case 'calls_completed':
+            return ["46"]
+        case 'budget_spent':
+            return ["5"]
+        case 'currency':  // TODO: Where is the currency? 
+            return ["-1"]
+        case 'impressions':
+            return ["7"]
+        case 'link_clicks':
+            return ["9"]
+        case 'ticket_revenue':
+            return ["52"]
+        case 'starter_packs_purchased':
+            return ["53"]
+        case 'vip_bundles_purchased':
+            return ["54"]
+        case 'inner_circle_purchased':
+            return ["55"]
+        case 'diamond_purchased':
+            return ["48", "56"]
+        default:
+            return ["-1"]
+    }
+}

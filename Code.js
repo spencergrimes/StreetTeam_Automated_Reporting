@@ -19,7 +19,19 @@ function updateMetrics(request) {
 
       var columnNr = getColumnNrByWeekName(metricsSheet, weekName)
 
-      console.log(columnNr)
+      for (var internalKey in testData[key]) {
+        var rows = translateTitleToRowNumber(internalKey)
+        var valueToWrite = testData[key][internalKey].toString()
+        rows.forEach(element => {
+          if (element != "-1") {
+            metricsSheet.getRange(Number(element), columnNr + 1).setValue(valueToWrite)
+            console.log(element, columnNr + 1)
+          }
+        });
+
+      }
     }
   }
 }
+
+SpreadsheetApp.flush();
