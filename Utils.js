@@ -18,6 +18,27 @@ function getColumnNrByWeekName(sheet, name) {
     throw 'failed to get column by name';
 }
 
+function fetchDataFromServer() {
+    var url = "http://dev.modern-musician.link/get-summary-data?api_key=test-key&service=FUNNEL_ACCELERATOR";
+
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+
+    var response = UrlFetchApp.fetch(url, requestOptions);    
+
+    var responseCode = response.getResponseCode()
+    var responseBody = response.getContentText()
+
+    if (responseCode === 200) {
+        var responseJson = JSON.parse(responseBody)
+        return responseJson;
+    } else {
+        Logger.log(Utilities.formatString("Request failed. Expected 200, got %d: %s", responseCode, responseBody))        
+    }
+}
+
 function translateTitleToRowNumber(name) {  // TODO: Find this automatically
     switch (name) {
         case 'conversations_started':
@@ -34,7 +55,7 @@ function translateTitleToRowNumber(name) {  // TODO: Find this automatically
             return ["28"]
         case 'fans_engaged':  // TODO: Check this here Engaged == Activated? 
             return ["30"]
-        case 'shows_registered': 
+        case 'shows_registered':
             return ["32", "36"]
         case 'shows_attended':
             return ["38"]
