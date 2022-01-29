@@ -31,6 +31,9 @@ function getWeekQuarterYearNumber(dateString) {
     if (weekOfQuarter == 0){
         weekOfQuarter = 13;
     }
+    if (weekNo == 53){
+        weekOfQuarter = 14;
+    }
     // Return array of year and week number
     return {
         year: d.getUTCFullYear().toString(),
