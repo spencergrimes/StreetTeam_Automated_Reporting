@@ -1,3 +1,14 @@
+function getData(ssId) {
+  var api_key = SpreadsheetApp.openById(ssId).getSheetByName("Setup").getRange(1, 2).getValue();
+
+  var data = fetchDataFromServer(api_key);
+
+  if (data.hasOwnProperty("data")) {    
+    return data.data;
+  }
+  return {}
+}
+
 function getTestData() {
     return {
       "testDataWeek1": {
