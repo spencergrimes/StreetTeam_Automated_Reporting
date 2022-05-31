@@ -1,5 +1,6 @@
 function getData(ssId) {
-  var api_key = SpreadsheetApp.openById(ssId).getSheetByName("Setup").getRange(1, 2).getValue();
+  var active = SpreadsheetApp.getActive()
+  var api_key = active.getSheetByName("Setup").getRange(1, 2).getValue();
 
   var data = fetchDataFromServer(api_key);
 

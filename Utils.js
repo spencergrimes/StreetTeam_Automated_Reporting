@@ -1,12 +1,19 @@
 function setup() {
-    var ssId = SpreadsheetApp.getActive().getId()
+    const ss = SpreadsheetApp.getActive();
     var triggers = ScriptApp.getProjectTriggers();
     if (triggers.length == 0) {
-        ScriptApp.newTrigger('onOpen')
-            .forSpreadsheet(ssId)
+        ScriptApp.newTrigger('whenOpen')
+            .forSpreadsheet(ss)
             .onOpen()
             .create();
     }
+}
+
+function updateData(){
+    var request;
+    var ssId = SpreadsheetApp.getActive().getId();
+    var activeSheet = SpreadsheetApp.getActive()
+    return updateMetrics(request, activeSheet, ssId);
 }
 
 function getWeekName(key) {
@@ -58,7 +65,7 @@ function getColumnNrByWeekName(sheet, name) {
 }
 
 function fetchDataFromServer(api_key) {
-    var url = "http://dev.modern-musician.link/get-summary-data?api_key=" + api_key + "&service=FUNNEL_ACCELERATOR";
+    var url = "http://api.modern-musician.link/get-summary-data?api_key=" + api_key + "&service=FUNNEL_ACCELERATOR";
 
     var requestOptions = {
         method: 'GET',
@@ -92,6 +99,8 @@ function translateTitleToRowNumber(name) {  // TODO: Find this automatically
             return ["22"]
         case 'new_fans_subscribed':
             return ["24"]
+        case 'streetteam_joined': // is streetteam_joined and fans subscribed the same number?
+            return ["24"]
         case 'total_fans_subscribed':
             return ["28"]
         case 'fans_engaged':  // TODO: Check this here Engaged == Activated? 
@@ -104,12 +113,16 @@ function translateTitleToRowNumber(name) {  // TODO: Find this automatically
             return ["40", "44"]
         case 'calls_completed':
             return ["46"]
+        case 'spend':
+            return ["5"]
         case 'budget_spent':
             return ["5"]
         case 'currency':  // TODO: Where is the currency? 
             return ["-1"]
         case 'impressions':
             return ["7"]
+        case 'inline_link_clicks':
+            return ["9"]
         case 'link_clicks':
             return ["9"]
         case 'ticket_revenue':
